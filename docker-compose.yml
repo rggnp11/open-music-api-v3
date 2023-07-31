@@ -1,0 +1,14 @@
+---
+version: '3'
+services:
+  postgresql:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_USER: "developer"
+      POSTGRES_DB: "openmusic"
+      POSTGRES_PASSWORD: "supersecretpassword"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../.data-open-music/postgresql:/var/lib/postgresql/data/pgdata

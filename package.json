@@ -1,0 +1,32 @@
+{
+  "name": "open-music-api-v1",
+  "version": "1.0.0",
+  "description": "OpenMusic API version 1 - Dicoding Learning Back-End App Fundamental Submission 1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "start-dev": "nodemon ./src/server.js",
+    "lint": "npx eslint src migrations",
+    "migrate": "node-pg-migrate"
+  },
+  "keywords": [],
+  "author": "Herianto T.",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.1.0",
+    "@hapi/jwt": "^3.2.0",
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "joi": "^17.9.2",
+    "nanoid": "^3.1.20",
+    "node-pg-migrate": "^6.2.2",
+    "npmlog": "^7.0.1",
+    "pg": "^8.11.0"
+  }
+}
