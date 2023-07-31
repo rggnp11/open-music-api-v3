@@ -12,3 +12,11 @@ services:
       - "5432:5432"
     volumes:
       - ../.data-open-music/postgresql:/var/lib/postgresql/data/pgdata
+
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+      - "25672:25672"

@@ -38,7 +38,9 @@ class PlaylistSongsService {
       GROUP BY songs.id`,
       values: [playlistId],
     };
+
     const { rows } = await this.pool.query(query);
+    
     return rows;
   }
 
