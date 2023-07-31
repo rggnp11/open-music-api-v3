@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@hapi/hapi": "^20.1.0",
+    "@hapi/inert": "^7.1.0",
     "@hapi/jwt": "^3.2.0",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
@@ -27,6 +28,7 @@
     "nanoid": "^3.1.20",
     "node-pg-migrate": "^6.2.2",
     "npmlog": "^7.0.1",
-    "pg": "^8.11.0"
+    "pg": "^8.11.0",
+    "redis": "^4.6.7"
   }
 }
