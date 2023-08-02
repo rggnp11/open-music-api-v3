@@ -40,7 +40,7 @@ class PlaylistSongsService {
     };
 
     const { rows } = await this.pool.query(query);
-    
+
     return rows;
   }
 

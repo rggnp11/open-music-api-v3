@@ -1,3 +1,4 @@
 node_modules
 .env
 notes_1.txt
+src/api/albums/file

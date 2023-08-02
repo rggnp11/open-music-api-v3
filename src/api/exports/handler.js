@@ -1,5 +1,3 @@
-const ClientError = require('../../exceptions/ClientError');
-
 class ExportsHandler {
   constructor(service, playlistsService, validator) {
     this.service = service;
@@ -21,7 +19,7 @@ class ExportsHandler {
 
     await this.service.sendMessage(
       'export:playlist',
-      JSON.stringify(message)
+      JSON.stringify(message),
     );
 
     const response = h.response({

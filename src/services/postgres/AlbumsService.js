@@ -2,6 +2,7 @@ const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
+const InternalServerError = require('../../exceptions/InternalServerError');
 
 class AlbumsService {
   constructor() {
@@ -29,7 +30,11 @@ class AlbumsService {
 
   async getAlbumById(id) {
     const query = {
-      text: 'SELECT id, name, year FROM albums WHERE id = $1',
+      text: `SELECT
+        id,
+        name,
+        cover_filename as coverfilename
+      FROM albums WHERE id = $1`,
       values: [id],
     };
 
@@ -46,10 +51,10 @@ class AlbumsService {
     const updated = new Date().toISOString().slice(0, 19).replace('T', ' ');
     const query = {
       text: `UPDATE albums SET
-      name = $2,
-      year = $3,
-      updated = $4
-      where id = $1
+        name = $2,
+        year = $3,
+        updated = $4
+      WHERE id = $1
       RETURNING id`,
       values: [id, name, year, updated],
     };
@@ -71,6 +76,24 @@ class AlbumsService {
 
     if (!rowCount) {
       throw new NotFoundError('Album gagal dihapus. Id tidak ditemukan');
+    }
+  }
+
+  async setAlbumCoverfilenameById(id, coverFilename) {
+    const updated = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const query = {
+      text: `UPDATE albums SET
+        cover_filename = $1,
+        updated = $2
+      WHERE id = $3
+      RETURNING id`,
+      values: [coverFilename, updated, id],
+    };
+
+    const { rowCount } = await this.pool.query(query);
+
+    if (!rowCount) {
+      throw new InternalServerError('Sampul gagal disimpan');
     }
   }
 }
