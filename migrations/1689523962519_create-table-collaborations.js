@@ -43,9 +43,11 @@ exports.down = (pgm) => {
     'collaborations',
     'fk_collaborations.user_id_users.id',
   );
+
   pgm.dropConstraint(
     'collaborations',
     'fk_collaborations.playlist_id_playlists.id',
   );
+  
   pgm.dropTable('collaborations');
 };

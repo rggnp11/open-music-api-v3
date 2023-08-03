@@ -31,7 +31,7 @@ class AlbumsHandler {
       album.coverUrl = null;
     }
     delete album.coverfilename;
-    
+
     const songs = await this.songsService.getSongsByAlbumId(id);
     album.songs = songs;
 
