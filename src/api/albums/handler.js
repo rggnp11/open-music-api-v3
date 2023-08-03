@@ -1,7 +1,16 @@
+const log = require('npmlog');
+
 class AlbumsHandler {
-  constructor(albumsService, songsService, storageService, validator) {
+  constructor(
+    albumsService,
+    songsService,
+    likesService,
+    storageService,
+    validator,
+  ) {
     this.albumsService = albumsService;
     this.songsService = songsService;
+    this.likesService = likesService;
     this.storageService = storageService;
     this.validator = validator;
   }
@@ -94,6 +103,50 @@ class AlbumsHandler {
       message: 'Sampul berhasil diunggah',
     });
     response.code(201);
+    return response;
+  }
+
+  async postAlbumLikeHandler(request, h) {
+    const { id } = request.params;
+    const { userId: credentialId } = request.auth.credentials;
+
+    await this.likesService.addLike({ albumId: id, userId: credentialId });
+
+    const response = h.response({
+      status: 'success',
+      message: 'Like berhasil ditambahkan',
+    });
+    response.code(201);
+    return response;
+  }
+
+  async deleteAlbumLikeHandler(request, h) {
+    const { id } = request.params;
+    const { userId: credentialId } = request.auth.credentials;
+
+    await this.likesService.deleteLike({ albumId: id, userId: credentialId });
+
+    const response = h.response({
+      status: 'success',
+      message: 'Like berhasil dihapus',
+    });
+    response.code(200);
+    return response;
+  }
+
+  async getAlbumLikeHandler(request, h) {
+    const { id } = request.params;
+
+    const likes = await this.likesService.getLikesCount(id);
+    log.info(null, likes);
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        likes,
+      },
+    });
+    response.code(200);
     return response;
   }
 }

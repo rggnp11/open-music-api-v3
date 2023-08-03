@@ -16,6 +16,8 @@ Prerequisites:
 
 To use required Node version (in .nvmrc), run `nvm use` (if NVM is available).
 
+To install dependencies, run `npm install`.
+
 To run the server in production mode: `npm run start`.
 
 To run the server in development mode: `npm run start-dev`.

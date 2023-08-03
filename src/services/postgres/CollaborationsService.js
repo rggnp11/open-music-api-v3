@@ -9,7 +9,7 @@ class CollaborationsService {
   }
 
   async addCollaboration({ playlistId, userId }) {
-    const id = `collaborations-${nanoid(16)}`;
+    const id = `collaboration-${nanoid(16)}`;
     const created = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     const query = {
