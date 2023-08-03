@@ -26,7 +26,7 @@ class AlbumsHandler {
 
     const album = await this.albumsService.getAlbumById(id);
     if (album.coverfilename) {
-      album.coverUrl = `http://${process.env.HOST}:${process.env.PORT}/albums/covers/${album.coverfilename}`;
+      album.coverUrl = `http://${process.env.HOST}:${process.env.PORT}/albums/covers/${encodeURIComponent(album.coverfilename)}`;
     } else {
       album.coverUrl = null;
     }
@@ -77,10 +77,14 @@ class AlbumsHandler {
     const { cover } = request.payload;
     this.validator.validateAlbumCoverHeaders(cover.hapi.headers);
 
-    await this.albumsService.getAlbumById(id);
+    const album = await this.albumsService.getAlbumById(id);
+    const oldCoverFilename = album.coverfilename;
     const filename = await this.storageService.writeFile(cover, cover.hapi);
     try {
       await this.albumsService.setAlbumCoverfilenameById(id, filename);
+      if (oldCoverFilename) {
+        this.storageService.deleteFile(oldCoverFilename);
+      }
     } catch {
       this.storageService.deleteFile(filename);
     }
